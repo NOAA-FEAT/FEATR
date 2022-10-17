@@ -26,14 +26,9 @@
 repath_EVdir <- function(Survey_Name, DirNameFile, ni=1,...) {
 
 ###
-
-# Rename as for EK60/EK80 or figure out how to make it work with both (keeping in mind may sometimes have other filesets).
-
-  #require(RDCOMClient)
-  #require(readxl)
-
-  #DirNameFile="C:/rthomas/R/Rcode/EK60_EK80 conversion/EK60_Ek80_conv_updated/Directory Structure EK60 EK80 conversion updated.xlsx"
-  #SurveyName='2019_US'
+# uses functions from
+# RDCOMClient
+# readxl
 
   ###############################################
   #           Set Paths                         #

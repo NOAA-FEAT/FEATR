@@ -28,7 +28,6 @@ Requires an excel file input hat says what the paths are
 Each row is a survey (survey_name), and each column is a path or file name
 }
 \examples{
-:
 DirNameFile="C:/rthomas/R/Rcode/EK60_EK80 conversion/EK60_Ek80_conv/Directory Structure EK60 EK80 conversion.xlsx"
 SurveyName='2019_US'
 repath_EVdir(SurveyName,DirNameFile)
