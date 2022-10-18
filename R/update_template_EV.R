@@ -1,4 +1,25 @@
-
+#'update_template_EV
+#'
+#' @description function to take in an the survey name and an excel file.  The excel 
+#' file has parameters such as file paths, template paths, etc.
+#'
+#' @param SurveyName name of survey as in excel file
+#' @param DirNameFile excel file name of paths
+#' @param ni is an optional argument for which file to start with (default ni=1 is the first file).
+#'
+#' Excel file has the following columns (with header names)
+#' Cal_File: calibration file name
+#' Base_Path:
+#' Orig_EV_Dir:
+#' Raw_Dir
+#' EK80_Cal_File
+#' EK80_Raw_Dir
+#'
+#' @examples
+#' DirNameFile="C:/rthomas/R/Rcode/EK60_EK80 conversion/EK60_Ek80_conv_updated/Directory Structure EK60 EK80 conversion updated.xlsx"
+#' SurveyName='2019_US'
+#' update_template_EV(SurveyName,DirNameFile, ni=1)
+#' @export
 
 update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
   ### This version is for filesets with both EK60 and EK80 files
@@ -8,18 +29,12 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
   ### Imports regions and lines into new EV files with new template
 
   #-----------------------------------------------------------------------------------------
-  #3/11/2021 Added extra to set transducer depth
 
   # required packages
   #require(RDCOMClient)
   #require(readxl)
-
-  #SurveyName='2019_US'
-  #SurveyName='2018_US'
-  #DirNameFile="C:/rthomas/R/Rcode/EK60_EK80 conversion/EK60_Ek80_conv_updated/Directory Structure EK60 EK80 conversion updated.xlsx"
-  DirTable <- readxl::read_excel(DirNameFile)
-
-  #Below 2 lines modified from Beth's updated code
+  
+  DirTable <- readxl::read_excel(DirNameFile)  #read in directory table
   DirTableSurvey<- subset(DirTable, Survey == SurveyName)
   DirTableSurvey[] <- lapply(DirTableSurvey, function(x) if(is.factor(x)) factor(x) else x)  #to ensure dataframe actually removed other variables in subset
 
@@ -55,14 +70,6 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
   bottomline <- TRUE
   bottomname <- DirTableSurvey$New_Bottom_Name
 
-  ###############################################
-
-
-
-
-  ###################################################
-  # Locate #
-
   #location of .raw or .ek60 files and EK80 files
   RAWdir<-DirTableSurvey$Raw_Dir
   RAWdir_EK80<-DirTableSurvey$EK80_Raw_Dir
@@ -82,8 +89,6 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
   Linedir<-file.path(CONV_new_template, Line)
   suppressWarnings(dir.create(Linedir))
 
-
-  #########################
   # list the EV files to run
   EVfile.list <- list.files(file.path(EVdir), pattern=".ev$", ignore.case = TRUE) #just the three ".ev" files!
 
@@ -108,6 +113,10 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
     # open EV file
     EVfile <- EVApp$OpenFile(EVfileName)
 
+#################
+    #fileset 1 (0)
+#################
+    
     # Set fileset object for EK60
     filesetObj <- EVfile[["Filesets"]]$Item(0)
 
@@ -124,54 +133,49 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
     #Get the raw file extension (should be "raw" or "ek60")
     rawfile_ext <- tools::file_ext(dataName)
 
-    # get .ecs filename
+    # set and check .ecs 
     calPath <- filesetObj$GetCalibrationFileName()
     calName <- sub(".*\\\\|.*/","",calPath)
     calFile <- filesetObj$GetCalibrationFileName()
-
-    #check it is correct .ecs file
-
-       if(!calFile == DirTableSurvey$Cal_File){
-          stop(".ecs file is wrong or missing", call. = FALSE)
-       }
-#############
-#fileset 1 (2)
-    # Set fileset object for EK80
-    filesetObj <- EVfile[["Filesets"]]$Item(1)
-
-    # list raw files
-    num <- filesetObj[["DataFiles"]]$Count()
-    raws_EK80 <- NULL
-    for (l in 0:(num-1)){
-      dataObj <- filesetObj[["DataFiles"]]$Item(l)
-      dataPath <- dataObj$FileName()
-      dataName <- sub(".*\\\\|.*/","",dataPath)
-      raws_EK80 <- c(raws_EK80,dataName)
-    }
-
-    #Get the raw file extension (should be "raw" or "ek60")
-    rawfile_ext_EK80 <- tools::file_ext(dataName)
-
-    # get .ecs filename
-    calPath_EK80 <- filesetObj$GetCalibrationFileName()
-    calName_EK80 <- sub(".*\\\\|.*/","",calPath)
-    calFile_EK80 <- filesetObj$GetCalibrationFileName()
-
-    #check it is correct .ecs file for EK60
-
     if(!calFile == DirTableSurvey$Cal_File){
-      stop("EK60 .ecs file is wrong or missing", call. = FALSE)
+        stop("Fileset1 .ecs file is wrong or missing", call. = FALSE)
     }
 
-    if(!calFile_EK80 == DirTableSurvey$EK80_Cal_File){
-      stop("EK80 .ecs file is wrong or missing", call. = FALSE)
+#############
+#fileset 2 (1)
+############
+    # Set fileset object for EK80, if it exists
+    nfilesets=EVfile[["Filesets"]]$Count()  #number of filesets
+    if (nfilesets>1) {
+      filesetObj <- EVfile[["Filesets"]]$Item(1)
+      # list raw files
+      num <- filesetObj[["DataFiles"]]$Count()
+      raws_EK80 <- NULL
+      for (l in 0:(num-1)){
+        dataObj <- filesetObj[["DataFiles"]]$Item(l)
+        dataPath <- dataObj$FileName()
+        dataName <- sub(".*\\\\|.*/","",dataPath)
+        raws_EK80 <- c(raws_EK80,dataName)
+      }
+  
+      #Get the raw file extension (should be "raw" or "ek60")
+      rawfile_ext_EK80 <- tools::file_ext(dataName)
+  
+      # set and check .ecs
+      calPath_EK80 <- filesetObj$GetCalibrationFileName()
+      calName_EK80 <- sub(".*\\\\|.*/","",calPath)
+      calFile_EK80 <- filesetObj$GetCalibrationFileName()
+      if(!calFile_EK80 == DirTableSurvey$EK80_Cal_File){
+        stop("Fileset2 .ecs file is wrong or missing", call. = FALSE)
+      }
     }
-
+    
+############
+#### exports
+############
     # export .evr file
-    # filename
-    regionfilename <-  file.path(Regdir, paste(name, "evr", sep="."))
-    # export
-    EVfile[["Regions"]]$ExportDefinitionsAll(regionfilename)
+    regionfilename <-  file.path(Regdir, paste(name, "evr", sep="."))     # filename
+    EVfile[["Regions"]]$ExportDefinitionsAll(regionfilename)      # export
 
     # export bottom line
       name_sub=sub('\\.','_',name) #to remove the "." in the first three transect names so bottom line gets properly named and exported...
@@ -179,28 +183,12 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
       linesObj <- EVfile[["Lines"]]
       bottom <- linesObj$FindbyName(EVbottomname)
       bottomfilename <- file.path(Linedir, paste(name_sub, "bottom", "evl", sep="."))
-      #bottom$Export(bottomfilename)
       varObj <- EVfile[["Variables"]]
       LineExportVar = varObj$FindbyName(LineExportVarName)
       LineExportVar$ExportLine(bottom,bottomfilename,-1,-1)
     }
 
-    #Get transducer depths
-    #Not all transducer depths were set correctly in original EV files - use
-    #38 kHz transducer depth
-    TransObj<-EVfile[["Transducers"]]
-    XD38<-TransObj$FindByName("38 kHz Transducer")
-    Dducer<-XD38$VerticalOffset()
-    # Dducer<-list()
-    nducers<-TransObj$Count()
-    # for (t in 1:nducers){
-    #   Dducer[t]<-TransObj$Item(t-1)$VerticalOffset()
-    #   #Not all transducers were set correctly in original EV file.  Go off of first transducer
-    # }
-    #quit echoview
     EVApp$Quit()
-
-
 
 
   #####################################
@@ -220,16 +208,18 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
 
   if(!calPath == ""){
 
-  #    if(calName == ecsfile_44_77){
       add.calibration <- filesetObj$SetCalibrationFile(calFile)
         } else {
           stop(".ecs file is wrong or missing", call. = FALSE)
-  #      }
   }
 
 
   # Add raw files, either with .raw or .ek60 extension; if no raw data located, error
 
+  ###########
+  #Fileset 1 (0)
+  ##########
+  
   #For EK60
   for (r in raws){
       if(rawfile_ext == "ek60") {
@@ -246,23 +236,30 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
       stop("No EK60 raw data found", call. = FALSE)
     }
 
-  # Set fileset object for EK80
-  filesetObj <- EVfile[["Filesets"]]$Item(1)
-
-  #For EK80
-  for (r in raws_EK80){
-    if(rawfile_ext_EK80 == "ek60") {
-      filesetObj[["DataFiles"]]$Add(file.path(EK6dir,r))
-    }  else if(rawfile_ext_EK80 == "raw") {
-      filesetObj[["DataFiles"]]$Add(file.path(RAWdir_EK80,r))
-    }  else {
-      stop("No EK80 raw data found", call. = FALSE)
+  ###########
+  #Fileset 2 (1)
+  ##########
+  
+  nfilesets=EVfile[["Filesets"]]$Count()  #number of filesets
+  if (nfilesets>1) {
+    # Set fileset object for EK80, if it exists
+    filesetObj <- EVfile[["Filesets"]]$Item(1)
+  
+    #For EK80
+    for (r in raws_EK80){
+      if(rawfile_ext_EK80 == "ek60") {
+        filesetObj[["DataFiles"]]$Add(file.path(EK6dir,r))
+      }  else if(rawfile_ext_EK80 == "raw") {
+        filesetObj[["DataFiles"]]$Add(file.path(RAWdir_EK80,r))
+      }  else {
+        stop("No EK80 raw data found", call. = FALSE)
+      }
     }
-  }
-
-  #Check to make sure data actually loaded into EV file!!
-  if (filesetObj[["DataFiles"]]$Count() == 0){
-    stop("No raw data found", call. = FALSE)
+  
+    #Check to make sure data actually loaded into EV file!!
+    if (filesetObj[["DataFiles"]]$Count() == 0){
+      stop("No raw data found", call. = FALSE)
+    }
   }
 
   # Add regions
@@ -282,7 +279,7 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
   if(EVfile$Import(bottomfilename)==FALSE){
     print("bottom file did not import correctly")
   }
-  bottom <- linesObj$FindbyName(paste0("Line",linenum+1))
+  #bottom <- linesObj$FindbyName(paste0("Line",linenum+1))
   #this doesn't work anymore, because it's not coming in as the name of the next line
   bottom<-linesObj$FindbyName(name_sub)  #Add this instead - looks like the name of the line comes from the filename
   linenum <- linenum + 1
@@ -294,24 +291,9 @@ update_template_EV <- function(Survey_Name, DirNameFile, ni=1,...) {
     bottom[["Name"]] <- "Bottom"
   }
 
-  #Set transducer depths
-  TransObj<-EVfile[["Transducers"]]
-  for (t in 1:nducers){
-    TOItem<-TransObj$Item(t-1)
-    #TOItem[["VerticalOffset"]]<-Dducer[[t]]
-    TOItem[["VerticalOffset"]]<-Dducer
-    #set transducer offset
-  }
-
   #Update export parameters
   Obj_ExpVar<-EVfile[['Properties']][['Export']][['Variables']]  #set export variables object
   SetBiomassExpParamsFun(Obj_ExpVar)  #update the export parameters to match standard biomass exports
-  Obj<-Obj_ExpVar$Item("Depth_mean")
-  Obj[["Enabled"]]<-TRUE
-  Obj<-Obj_ExpVar$Item("Height_mean")
-  Obj[["Enabled"]]<-TRUE
-  Obj<-Obj_ExpVar$Item("Range_mean")
-  Obj[["Enabled"]]<-TRUE
 
   # Save EV file
   EVfile$SaveAS(file.path(CONV_new_template,i))
