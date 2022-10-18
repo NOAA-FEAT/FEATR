@@ -12,8 +12,9 @@
 #' @param ni is an optional argument for which file to start with (default ni=1 is the first file).  
 #' This defaults to 1 (all EV files)
 #' @param gdepth is an optional argument for the cell depth.  gdepth defaults to 10 m
+#' @param database is an optional argument for export format.  Default is database (1).  Spreadsheet =0 
 #' @export
-export_integration_EV <- function(Survey_Name, DirNameFile,variables,paramnamefile=NA,ni=1,gdepth=10,...) {
+export_integration_EV <- function(Survey_Name, DirNameFile,variables,paramnamefile=NA,ni=1,gdepth=10,database=1,...) {
   
   ###############################################
   #----------------  INPUT  --------------------#
@@ -76,6 +77,15 @@ export_integration_EV <- function(Survey_Name, DirNameFile,variables,paramnamefi
       par_Table<- readxl::read_excel(paramnamefile)  #read in directory table
       SetExpParamsFun(Obj_ExpVar, par_Table$ToExport[!is.na(par_Table$ToExport)],par_Table$NoExport[!is.na(par_Table$NoExport)])
       }
+    
+    #Set to export database or spreadsheet format
+    Obj_ExpVarFor<-EVfile[['Properties']][['Export']]
+    if(database==1){
+      Obj_ExpVarFor[['Mode']]<-1  #database format
+      }
+    else if(database==0){
+      Obj_ExpVarFor[['Mode']]<-2
+      }  #spreadsheet format
     
     # Variables object
     Obj <- EVfile[["Variables"]]
