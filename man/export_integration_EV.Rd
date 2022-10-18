@@ -11,6 +11,7 @@ export_integration_EV(
   paramnamefile = NA,
   ni = 1,
   gdepth = 10,
+  database = 1,
   ...
 )
 }
@@ -24,6 +25,8 @@ The column ToExport is parameters to export.  The column NoExport is parameters 
 This defaults to 1 (all EV files)}
 
 \item{gdepth}{is an optional argument for the cell depth.  gdepth defaults to 10 m}
+
+\item{database}{is an optional argument for export format.  Default is database (1).  Spreadsheet =0}
 
 \item{SurveyName}{name of survey as in excel file}
 }

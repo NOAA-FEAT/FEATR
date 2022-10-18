@@ -2,11 +2,13 @@ Package: FEATR
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Rebecca Thomas
+Maintainer: Rebecca Thomas <rebecca.thomas@noaa.gov>
+Description: Package of files for the NWFSC FEAT team for scripting in Echoview using R.
+    The focus of the package is on using Echoview Automation in R to do things like 
+    re-pathing files, updating templates, exporing Echoview data, and importing Echoview exports
+    into R.
+License: GNU General Public License
 Encoding: UTF-8
 LazyData: true
 Depends: readxl,readr,purrr,dplyr, stringr, RDCOMClient
