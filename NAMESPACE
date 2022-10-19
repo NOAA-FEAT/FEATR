@@ -3,5 +3,7 @@
 export(SetBiomassExpParamsFun)
 export(SetExpParamsFun)
 export(export_integration_EV)
+export(read_EV_exports)
+export(read_csv_addflnm)
 export(repath_EVdir)
 export(update_template_EV)
