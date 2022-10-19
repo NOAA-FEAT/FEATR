@@ -102,7 +102,7 @@ BaseProjPath<-as.character(DirTable_yr$Base_Path[1]) #same for both surveys with
   CONV_10m_join<- dplyr::inner_join(temp, CONV_10m_combine_analysis, by="Process_ID")
   CONV_10m_join$Transect <- sapply(strsplit(CONV_10m_join$filename.x,"_", fixed = TRUE),`[`,1)
   CONV_10m_join$ID <- paste(CONV_10m_join$Transect,CONV_10m_join$Interval, sep="_") 
-  CONV_10m_join$Survey <- paste(Surveyin) 
+  CONV_10m_join$Survey <- paste(SurveyName) 
   CONV_10m_join$Transect<-as.numeric(gsub(".*?([0-9]+).*", "\\1", CONV_10m_join$Transect))  #Make into the transect number itself (e.g. 1 instead of x1)
 #} 
  
