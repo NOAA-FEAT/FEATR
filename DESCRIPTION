@@ -11,7 +11,7 @@ Description: Package of files for the NWFSC FEAT team for scripting in Echoview 
 License: GNU General Public License
 Encoding: UTF-8
 LazyData: true
-Depends: readxl,readr,purrr,dplyr, stringr, RDCOMClient
+Depends: readxl,purrr,dplyr, stringr, RDCOMClient,readr
 Imports:
 RoxygenNote: 7.1.1
 URL: https://noaa-feat.github.io/FEATR/
