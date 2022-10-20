@@ -2,7 +2,8 @@
 % Please edit documentation in R/SetExpParamsFun.R
 \name{SetExpParamsFun}
 \alias{SetExpParamsFun}
-\title{SetExpParamsFun(Obj_ExpVar, ToExport,NoExport)}
+\title{SetExpParamsFun - function to set the export parameters in Echoview given an 
+Echoview export object}
 \usage{
 SetExpParamsFun(Obj_ExpVar, ToExport, NoExport)
 }

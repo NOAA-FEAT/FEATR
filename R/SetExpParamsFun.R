@@ -1,4 +1,5 @@
-#'SetExpParamsFun(Obj_ExpVar, ToExport,NoExport)
+#'SetExpParamsFun - function to set the export parameters in Echoview given an 
+#'Echoview export object
 #'
 #' @description Function to take an EvFile Export object and set the export parameters within it. 
 #' Parameters to export come in as ToExport. Parameters not to export come in as NoExport

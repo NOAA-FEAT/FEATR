@@ -7,6 +7,7 @@
 #'
 #' @param SurveyName name of survey as in excel file
 #' @param DirNameFile excel file name of paths
+#' @param variables - variables to read in (subdirectories need to be named as variables)
 #' @param paramnamefile optional excel file name of parameters to export or not export.  
 #' The column ToExport is parameters to export.  The column NoExport is parameters to not export
 #' @param ni is an optional argument for which file to start with (default ni=1 is the first file).  

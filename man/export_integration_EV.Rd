@@ -18,6 +18,8 @@ export_integration_EV(
 \arguments{
 \item{DirNameFile}{excel file name of paths}
 
+\item{variables}{- variables to read in (subdirectories need to be named as variables)}
+
 \item{paramnamefile}{optional excel file name of parameters to export or not export.
 The column ToExport is parameters to export.  The column NoExport is parameters to not export}
 
