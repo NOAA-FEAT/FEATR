@@ -11,13 +11,14 @@ read_EV_exports(var, SurveyName, DirNameFile)
 
 \item{SurveyName}{- name of survey}
 
-\item{DirNameFile}{excel file name of paths}
+\item{DirNameFile}{excel file - contains paths and locations of files}
 }
 \description{
 Read in a directory of .csv files (can be of several variables) 
-exported from Echoview.   Uses
+exported from Echoview.   The function preserves the cells by depth. 
+Uses packages readxl, readr, purrr, and dplyr.
 }
 \examples{
-test example
+temp<-read_EV_exports(variables[1], SurveyName, DirNameFile)
 
 }
