@@ -4,7 +4,7 @@
 \alias{read_EV_exports}
 \title{read_EV_exports:  Read in a directory of .csv files exported from Echoview}
 \usage{
-read_EV_exports(var, SurveyName, DirNameFile)
+read_EV_exports(var, SurveyName, DirNameFile, database = 1, exportloc = 1, ...)
 }
 \arguments{
 \item{var}{- variables to read in (subdirectories need to be named as variables)}
@@ -12,6 +12,11 @@ read_EV_exports(var, SurveyName, DirNameFile)
 \item{SurveyName}{- name of survey}
 
 \item{DirNameFile}{excel file - contains paths and locations of files}
+
+\item{database}{is an optional argument for format of the .csv files to.  Default is database (1).  Spreadsheet =0}
+
+\item{exportloc}{is an optional argument for using the Export_Dir or the Region_Export_dir column
+entry in the DirNameFile spreadsheet.  1 is Export_Dir, and 0 is Region_Export_dir}
 }
 \description{
 Read in a directory of .csv files (can be of several variables) 
@@ -19,6 +24,6 @@ exported from Echoview.   The function preserves the cells by depth.
 Uses packages readxl, readr, purrr, and dplyr.
 }
 \examples{
-temp<-read_EV_exports(variables[1], SurveyName, DirNameFile)
+temp<-read_EV_exports(variables[1], SurveyName, DirNameFile,database=1,exportloc=1)
 
 }

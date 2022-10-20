@@ -5,7 +5,15 @@
 \title{read_EV_exports_compile: Read and append certain columns from multiple
 variable Echoview exports}
 \usage{
-read_EV_exports_compile(variables, CompCols, SurveyName, DirNameFile)
+read_EV_exports_compile(
+  variables,
+  CompCols,
+  SurveyName,
+  DirNameFile,
+  database = 1,
+  exportloc = 1,
+  ...
+)
 }
 \arguments{
 \item{variables}{- variables to read in (subdirectories need to be named as variables)}
@@ -13,6 +21,11 @@ read_EV_exports_compile(variables, CompCols, SurveyName, DirNameFile)
 \item{SurveyName}{- name of survey}
 
 \item{DirNameFile}{excel file - contains paths and locations of files}
+
+\item{database}{is an optional argument for format of the .csv files to input.  Default is database (1).  Spreadsheet =0}
+
+\item{exportloc}{is an optional argument for using the Export_Dir or the Region_Export_dir column
+entry in the DirNameFile spreadsheet.  1 is Export_Dir, and 0 is Region_Export_dir}
 
 \item{ComCols}{- the columns to be kept from the non-primary variable and appended 
 to the end of the data.}
@@ -24,4 +37,8 @@ variables are appended onto the end of the dataframe.  Usually for exports from
 multiple EV files.  Reads in multiple 
 variables exported  from each EV file.   
 Example columns are Sv_mean and PRC_NASC.
+}
+\examples{
+temp2<-read_EV_exports_compile(variables,CompCols=c("Sv_mean","PRC_NASC"),SurveyName, DirNameFile,database=1,exportloc=1)
+temp4<-read_EV_exports_compile(variables,CompCols=c(),SurveyName, DirNameFile,database=1, exportloc=0) to read in region exported data
 }
