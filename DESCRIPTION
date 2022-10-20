@@ -14,3 +14,4 @@ LazyData: true
 Depends: readxl,readr,purrr,dplyr, stringr, RDCOMClient
 Imports:
 RoxygenNote: 7.1.1
+URL: https://noaa-feat.github.io/FEATR/
