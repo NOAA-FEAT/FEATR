@@ -17,7 +17,7 @@
 
 read_EV_exports<-function(var, SurveyName, DirNameFile,database=1,exportloc=1,...){
 
-DirTable <- readxl::read_excel(DirNameFile)  #load in directories/paths/locations
+DirTable <- readxl::read_excel(DirNameFile)  #load in directories/paths/ltocations
 DirTable_yr<- subset(DirTable, Survey ==SurveyName) #just year of interest
 DirTable_yr[] <- lapply(DirTable_yr, function(x) if(is.factor(x)) factor(x) else x)  #to ensure dataframe actually removed other variables in subset
 
