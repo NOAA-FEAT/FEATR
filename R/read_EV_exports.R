@@ -36,7 +36,7 @@ else {print("export location needs to be 0 or 1")}
 
 setwd(CONV_exportbase)
 # for spreadsheet format
-if (!database==0){  #if database does not equal 1; that is, spreadsheet
+if (!database==1){  #if database does not equal 1; that is, spreadsheet
 NASC.list.to.combine <-list.files(file.path(CONV_exportbase), pattern = "*.csv") #be sure to verify correct number of files loaded
 CONV_10m_combine <- NASC.list.to.combine %>% purrr::map_df(~read_csv_addflnm(.))
 }
