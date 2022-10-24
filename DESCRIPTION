@@ -1,7 +1,7 @@
 Package: FEATR
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
+Title: R scripts for FEAT
+Version: 0.1.1
 Author: Rebecca Thomas
 Maintainer: Rebecca Thomas <rebecca.thomas@noaa.gov>
 Description: Package of files for the NWFSC FEAT team for scripting in Echoview using R.
