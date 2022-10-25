@@ -32,9 +32,9 @@ devtools::install_github("NOAA-FEAT/FEATR")
     the EVfile in the directory list to start the processing at. The
     default is ni=1.
 
-To set the export parameters for within an EV file, use
-SetBiomassExpParamsFun(Obj\_ExpVar, ToExport,NoExport), where
-Obj\_ExpVar is the Echoview object of the acoustic variable, ToExport is
-the list of parameters to have be exported, and NoExport is the list of
-parameters to not have exported. It’s handy to keep those in separate
-columns of an excel file
+2)  To set the export parameters for within an EV file, use
+    SetBiomassExpParamsFun(Obj\_ExpVar, ToExport,NoExport), where
+    Obj\_ExpVar is the Echoview object of the acoustic variable,
+    ToExport is the list of parameters to have be exported, and NoExport
+    is the list of parameters to not have exported. It’s handy to keep
+    those in separate columns of an excel file
