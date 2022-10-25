@@ -15,6 +15,3 @@ read_csv_addflnm is a function to read in .csv files (e.g. Echoview exports)
 as a table and append the filename as another column in the table.  Is based
 off read_csv (from package readr)
 }
-\examples{
-
-}

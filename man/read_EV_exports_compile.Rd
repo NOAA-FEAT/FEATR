@@ -38,8 +38,3 @@ multiple EV files.  Reads in multiple
 variables exported  from each EV file.   
 Example columns are Sv_mean and PRC_NASC.
 }
-\examples{
-temp2<-read_EV_exports_compile(variables,CompCols=c("Sv_mean","PRC_NASC"),SurveyName, DirNameFile,database=1,exportloc=1)
-
-temp4<-read_EV_exports_compile(variables,CompCols=c(),SurveyName, DirNameFile,database=1, exportloc=0) to read in region exported data
-}
