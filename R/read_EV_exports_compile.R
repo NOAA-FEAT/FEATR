@@ -17,11 +17,6 @@
 #' @param exportloc is an optional argument for using the Export_Dir or the Region_Export_dir column
 #' entry in the DirNameFile spreadsheet.  1 is Export_Dir, and 0 is Region_Export_dir
 #' 
-#' @examples 
-#' temp2<-read_EV_exports_compile(variables,CompCols=c("Sv_mean","PRC_NASC"),SurveyName, DirNameFile,database=1,exportloc=1)
-#' 
-#' temp4<-read_EV_exports_compile(variables,CompCols=c(),SurveyName, DirNameFile,database=1, exportloc=0) to read in region exported data
-
 #' @export
 
 
