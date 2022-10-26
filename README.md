@@ -11,6 +11,11 @@ The goal of FEATR is to provide a tidy package of frequently used R
 files for Echoview processing. This package is in its initial state and
 will be undergoing considerable updates.
 
+## Repository
+
+The repository for the FEATR package can be found on the NOAA-FEAT
+GitHub page at [FEATR](https://github.com/NOAA-FEAT/FEATR).
+
 ## Installation
 
 You can install the development version from
