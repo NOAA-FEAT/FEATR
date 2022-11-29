@@ -2,6 +2,7 @@
 
 export(SetBiomassExpParamsFun)
 export(SetExpParamsFun)
+export(createlog)
 export(export_integration_EV)
 export(read_EV_exports)
 export(read_EV_exports_compile)
