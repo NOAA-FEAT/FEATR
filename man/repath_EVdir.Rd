@@ -4,9 +4,11 @@
 \alias{repath_EVdir}
 \title{repath_EVdir.R}
 \usage{
-repath_EVdir(Survey_Name, DirNameFile, ni = 1, ...)
+repath_EVdir(SurveyName, DirNameFile, ni = 1, ...)
 }
 \arguments{
+\item{SurveyName}{name of survey as in excel file}
+
 \item{DirNameFile}{excel file name of paths}
 
 \item{ni}{is an optional argument for which file to start with (default ni=1 is the first file).
@@ -18,13 +20,11 @@ Orig_EV_Dir:
 Raw_Dir
 EK80_Cal_File
 EK80_Raw_Dir}
-
-\item{SurveyName}{name of survey as in excel file}
 }
 \description{
-Function to take a directory of EV files and reset the path.  
+Function to take a directory of EV files and reset the path.
 This works for EV files that have just an EK80 fileset, or that have the EK60 file set
-as the first fileset, and the EK80 as the second fileset.  
+as the first fileset, and the EK80 as the second fileset.
 May want to eventually convert to calling "fileset1" and "fileset2" instead of EK60 and EK80.
 Written by RT 2022.
 Requires an excel file input hat says what the paths are
