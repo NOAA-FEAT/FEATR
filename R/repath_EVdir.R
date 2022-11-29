@@ -1,8 +1,8 @@
 #' repath_EVdir.R
 #'
-#' @description Function to take a directory of EV files and reset the path.  
+#' @description Function to take a directory of EV files and reset the path.
 #' This works for EV files that have just an EK80 fileset, or that have the EK60 file set
-#' as the first fileset, and the EK80 as the second fileset.  
+#' as the first fileset, and the EK80 as the second fileset.
 #' May want to eventually convert to calling "fileset1" and "fileset2" instead of EK60 and EK80.
 #' Written by RT 2022.
 #' Requires an excel file input hat says what the paths are
@@ -26,7 +26,7 @@
 #' repath_EVdir(SurveyName,DirNameFile)
 #'
 #' @export
-repath_EVdir <- function(Survey_Name, DirNameFile, ni=1,...) {
+repath_EVdir <- function(SurveyName, DirNameFile, ni=1,...) {
 
 ###
 # uses functions from
